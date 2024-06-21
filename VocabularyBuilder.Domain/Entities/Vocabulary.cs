@@ -11,5 +11,7 @@ namespace VocabularyBuilder.Domain.Entities
         public string Word { get; set; }
         public string Meaning { get; set; }
         public string Audio {  get; set; }
+        public Book book { get; set; }
+        public int BookId { get; set; }
     }
 }

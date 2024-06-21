@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Microsoft.EntityFrameworkCore;
 using VocabularyBuilder.Domain.Entities;
+
 
 namespace VocabularyBuilder.Infra.Context
 {
@@ -16,5 +13,10 @@ namespace VocabularyBuilder.Infra.Context
         }
         public DbSet<Vocabulary> vocabularies { get; set;}
         public DbSet<Book> books { get; set;}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PostgreeSQL).Assembly);
+        }
     }
 }

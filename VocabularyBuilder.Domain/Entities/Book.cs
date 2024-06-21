@@ -10,5 +10,6 @@ namespace VocabularyBuilder.Domain.Entities
     {
         public string Title { get; set; }
         public DateTime Date {  get; set; }
+        public IEnumerable<Vocabulary> vocabularies { get; set; }
     }
 }

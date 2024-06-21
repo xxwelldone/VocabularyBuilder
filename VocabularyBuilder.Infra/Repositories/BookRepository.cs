@@ -9,7 +9,7 @@ using VocabularyBuilder.Infra.Context;
 
 namespace VocabularyBuilder.Infra.Repositories
 {
-    internal class BookRepository : BaseRepository<Book>, IBookRepository
+    public class BookRepository : BaseRepository<Book>, IBookRepository
     {
         public BookRepository(PostgreeSQL context) : base(context)
         {
