@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using VocabularyBuilder.App.Mappings;
 using VocabularyBuilder.Domain.Interface;
 using VocabularyBuilder.Infra.Context;
 using VocabularyBuilder.Infra.Repositories;
@@ -23,6 +24,7 @@ namespace VocabularyBuilder.API
             builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(MappingDTOs));
 
             var app = builder.Build();
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
