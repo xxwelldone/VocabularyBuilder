@@ -25,6 +25,10 @@ namespace VocabularyBuilder.API
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(MappingDTOs));
+            builder.Services.AddHttpClient("dictionaryapi", HttpClient =>
+            {
+                HttpClient.BaseAddress = new Uri("https://api.dictionaryapi.dev/api/v2/entries/en/");
+            }); //Service para consumo de api externa
 
             var app = builder.Build();
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
