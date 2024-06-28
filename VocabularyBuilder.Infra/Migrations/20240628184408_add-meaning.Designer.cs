@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VocabularyBuilder.Infra.Context;
@@ -11,9 +12,11 @@ using VocabularyBuilder.Infra.Context;
 namespace VocabularyBuilder.Infra.Migrations
 {
     [DbContext(typeof(PostgreeSQL))]
-    partial class PostgreeSQLModelSnapshot : ModelSnapshot
+    [Migration("20240628184408_add-meaning")]
+    partial class addmeaning
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

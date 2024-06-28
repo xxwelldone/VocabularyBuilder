@@ -10,6 +10,7 @@ namespace VocabularyBuilder.Domain.Interface
     {
         IBookRepository BookRepository { get; }
         IVocabularyRepository VocabularyRepository { get; }
+        IMeaningRepository MeaningRepository { get; }
         Task Commit();
         void Dispose();
     }

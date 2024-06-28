@@ -13,6 +13,7 @@ namespace VocabularyBuilder.Infra.UnitOfWork
     {
         private IBookRepository? _bookRepository;
         private IVocabularyRepository? _vocabularyRepository;
+        private IMeaningRepository? _meaningRepository;
 
         private PostgreeSQL _context;
         public UnitOfWork(PostgreeSQL context)
@@ -23,15 +24,15 @@ namespace VocabularyBuilder.Infra.UnitOfWork
 
         public IVocabularyRepository VocabularyRepository => _vocabularyRepository ?? new VocabularyRepository(_context);
 
-
-        public Task Commit()
+        public IMeaningRepository MeaningRepository => _meaningRepository ?? new MeaningRepository(_context);
+        public async Task Commit()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _context.Dispose();
         }
     }
 }

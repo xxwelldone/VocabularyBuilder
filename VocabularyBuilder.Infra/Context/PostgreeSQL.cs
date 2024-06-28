@@ -13,6 +13,7 @@ namespace VocabularyBuilder.Infra.Context
         }
         public DbSet<Vocabulary> vocabularies { get; set;}
         public DbSet<Book> books { get; set;}
+        public DbSet<Meaning> meanings { get; set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

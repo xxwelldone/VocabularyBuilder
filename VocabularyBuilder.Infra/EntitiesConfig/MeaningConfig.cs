@@ -9,14 +9,13 @@ using VocabularyBuilder.Domain.Entities;
 
 namespace VocabularyBuilder.Infra.EntitiesConfig
 {
-    public class VocabularyConfig : IEntityTypeConfiguration<Vocabulary>
+    public class MeaningConfig : IEntityTypeConfiguration<Meaning>
     {
-        public void Configure(EntityTypeBuilder<Vocabulary> builder)
+        public void Configure(EntityTypeBuilder<Meaning> builder)
         {
+           
             builder.HasKey(x => x.Id);
-            builder.Property(p => p.Word).IsRequired();
-            builder.HasOne(b=>b.book).WithMany(v=>v.vocabularies).HasForeignKey(i => i.BookId);
-            
+            builder.HasOne(x=>x.word).WithMany(x=>x.meanings).HasForeignKey(x=>x.VocabularyId);
         }
     }
 }
