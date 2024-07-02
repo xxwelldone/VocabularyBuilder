@@ -34,6 +34,8 @@ namespace VocabularyBuilder.API
                 HttpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:FreeDictionaryAPI"]);
             }); //Service para consumo de api externa chamado Cliente nomeado
 
+           
+
             var app = builder.Build();
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

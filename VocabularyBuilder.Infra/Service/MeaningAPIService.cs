@@ -11,7 +11,8 @@ namespace VocabularyBuilder.Infra.Service
 {
     public class MeaningAPIService : BaseAPIService<Meaning>, IMeaningAPIService
     {
-        public MeaningAPIService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
+        private const string _endpoint = "/api/v2/entries/en";
+        public MeaningAPIService(IHttpClientFactory httpClientFactory) : base(httpClientFactory, _endpoint)
         {
         }
 

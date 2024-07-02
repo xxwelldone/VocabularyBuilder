@@ -12,7 +12,8 @@ namespace VocabularyBuilder.Infra.Service
 
     public class VocabularyAPIService : BaseAPIService<Vocabulary>, IVocabularyAPIService
     {
-        public VocabularyAPIService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
+        private const string _endpoint = "/api/v2/entries/en";
+        public VocabularyAPIService(IHttpClientFactory httpClientFactory) : base(httpClientFactory, _endpoint)
         {
         }
     }

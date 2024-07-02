@@ -15,6 +15,13 @@ namespace VocabularyBuilder.Test.UnitTests
     public class VocabularyAPIServiceTest
     {
         
+        // Arrange
+
+        //Act
+
+        //Assert
+
+
 
     }
 }
