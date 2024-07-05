@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using VocabularyBuilder.Domain.Entities;
 
-namespace VocabularyBuilder.Domain.Interface.Services
+namespace VocabularyBuilder.Domain.Interface.Adapter
 {
-    public interface IVocabularyAPIService : IBaseAPIService<Vocabulary>
+    public interface IDictionaryAPIAdapter
     {
+        Task<Vocabulary> GetWord(string word);
     }
 }

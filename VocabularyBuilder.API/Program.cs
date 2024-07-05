@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using VocabularyBuilder.App.Mappings;
 using VocabularyBuilder.Domain.Interface;
+using VocabularyBuilder.Domain.Interface.Adapter;
 using VocabularyBuilder.Domain.Interface.Services;
+using VocabularyBuilder.Infra.Adapter;
 using VocabularyBuilder.Infra.Context;
 using VocabularyBuilder.Infra.Repositories;
 using VocabularyBuilder.Infra.Service;
@@ -26,15 +28,14 @@ namespace VocabularyBuilder.API
             builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<IVocabularyAPIService, VocabularyAPIService>();
-            builder.Services.AddScoped<IMeaningAPIService,MeaningAPIService>();
+            builder.Services.AddScoped<IDictionaryAPIAdapter, DictionaryAPIAdapter>();
             builder.Services.AddAutoMapper(typeof(MappingDTOs));
-            builder.Services.AddHttpClient("dictionaryapi", HttpClient =>
-            {
-                HttpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:FreeDictionaryAPI"]);
-            }); //Service para consumo de api externa chamado Cliente nomeado
+            //builder.Services.AddHttpClient("dictionaryapi", HttpClient =>
+            //{
+            //    HttpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:FreeDictionaryAPI"]);
+            //}); //Service para consumo de api externa chamado Cliente nomeado
 
-           
+
 
             var app = builder.Build();
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
