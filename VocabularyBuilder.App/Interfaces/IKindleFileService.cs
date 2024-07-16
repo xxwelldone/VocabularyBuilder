@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using VocabularyBuilder.Domain.Entities;
+using VocabularyBuilder.Domain.Entities.ExternalAPI;
 
 namespace VocabularyBuilder.App.Interfaces
 {
     public interface IKindleFileService
     {
-        Task ReadFile(IFormFile kindleFile);
-        Task SaveBook(List<String> books);
-        Task SaveWord(List<String> words);
+        //Tres listas strings -> Vocabulary, Book, date
+        //pega os dados do Dictionary
+        //inicia listas dos tipos Vocabulary, Meaning, Book
+
+     
+        Task<IEnumerable<IEnumerable<String>>>FormatKindleData(IFormFile kindleFile);
+        Task SaveKindleData(IEnumerable<IEnumerable<String>> data);
+    };
+        
+     
     }
 }

@@ -7,13 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using VocabularyBuilder.Domain.Entities;
+using VocabularyBuilder.Domain.Entities.ExternalAPI;
 using VocabularyBuilder.Domain.Interface.Adapter;
 
 namespace VocabularyBuilder.Infra.Adapter
 {
     public class DictionaryAPIAdapter : BaseAdapter, IDictionaryAPIAdapter
     {
-        //Criar interface para registro no DI
+       
         private const string _endpoint = "/api/v2/entries/en";
 
         public DictionaryAPIAdapter(ILogger<BaseAdapter> logger, IConfiguration configuration) : base(logger, configuration)
@@ -21,7 +22,7 @@ namespace VocabularyBuilder.Infra.Adapter
             _baseUrl = configuration["ServiceUri:FreeDictionaryAPI"];
         }
 
-        public async Task<Vocabulary> GetWord(string word)
+        public async Task<Dictionary> GetOnDictionary(string word)
         {
             string url = _baseUrl + _endpoint + word;
 
@@ -30,7 +31,7 @@ namespace VocabularyBuilder.Infra.Adapter
             if (result != null && result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var dictionary = JsonConvert.DeserializeObject<Vocabulary>(content); //criar uma classe dictionary abrangente para puxar dados para classes individuais
+                var dictionary = JsonConvert.DeserializeObject<Dictionary>(content); //criar uma classe dictionary abrangente para puxar dados para classes individuais
                 return dictionary;
             }
 
