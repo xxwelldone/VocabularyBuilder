@@ -12,22 +12,23 @@ namespace VocabularyBuilder.App.Services
 {
     public class BookService : IBookService
     {
-        readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public BookService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Book>> GetAllBooks()
+        public async Task<IEnumerable<Book>> GetAllBooks()
         {
-            var books = _unitOfWork.BookRepository.GetAll();
+            var books = await _unitOfWork.BookRepository.GetAll();
           
             return books;
         }
 
-        public Task<Book?> GetBookByFilter(Expression<Func<Book, bool>> expression)
+        public async Task<Book?> GetBookByFilter(Expression<Func<Book, bool>> expression)
         {
-            var books = _unitOfWork.BookRepository.GetBy(expression);
+            var books = await _unitOfWork.BookRepository.GetBy(expression);
+            if(books == null) { return null; }
             return books;
         }
         public Book SaveBook(Book book)
