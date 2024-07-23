@@ -11,10 +11,10 @@ namespace VocabularyBuilder.App.Interfaces
     public interface IBookService
     {
         Task<IEnumerable<Book>> GetAllBooks();
-        Task<Book?> GetBookByFilter(Expression<Func<Book, bool>> expression);
-        Book SaveBook(Book book);
-        Book UpdateBook(Book book);
-       Book DeleteBook(Book book);
+        Task<Book> GetBookByFilter(Expression<Func<Book, bool>> expression);
+        Task<Book> SaveBook(Book book);
+        Task<Book> UpdateBook(Book book, int id);
+        Task<Book> DeleteBook(int id);
 
     }
 }

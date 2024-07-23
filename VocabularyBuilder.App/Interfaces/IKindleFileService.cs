@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Http;
-using VocabularyBuilder.Domain.Entities;
-using VocabularyBuilder.Domain.Entities.ExternalAPI;
+
 
 namespace VocabularyBuilder.App.Interfaces
 {
@@ -22,5 +16,5 @@ namespace VocabularyBuilder.App.Interfaces
     };
         
      
-    }
+    
 }

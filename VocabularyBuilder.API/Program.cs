@@ -1,13 +1,15 @@
 
 using Microsoft.EntityFrameworkCore;
+using VocabularyBuilder.App.Interfaces;
 using VocabularyBuilder.App.Mappings;
+using VocabularyBuilder.App.Services;
 using VocabularyBuilder.Domain.Interface;
 using VocabularyBuilder.Domain.Interface.Adapter;
-using VocabularyBuilder.Domain.Interface.Services;
+
 using VocabularyBuilder.Infra.Adapter;
 using VocabularyBuilder.Infra.Context;
 using VocabularyBuilder.Infra.Repositories;
-using VocabularyBuilder.Infra.Service;
+
 using VocabularyBuilder.Infra.UnitOfWork;
 
 namespace VocabularyBuilder.API
@@ -30,6 +32,9 @@ namespace VocabularyBuilder.API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IDictionaryAPIAdapter, DictionaryAPIAdapter>();
             builder.Services.AddAutoMapper(typeof(MappingDTOs));
+            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IMeaningService, MeaningService>();
+            builder.Services.AddScoped<IVocabularyService, VocabularyService>();
             //builder.Services.AddHttpClient("dictionaryapi", HttpClient =>
             //{
             //    HttpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:FreeDictionaryAPI"]);

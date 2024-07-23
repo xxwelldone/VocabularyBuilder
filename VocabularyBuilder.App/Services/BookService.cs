@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VocabularyBuilder.App.Interfaces;
+using VocabularyBuilder.Domain.CustomException;
 using VocabularyBuilder.Domain.Entities;
 using VocabularyBuilder.Domain.Interface;
 
@@ -21,32 +22,46 @@ namespace VocabularyBuilder.App.Services
         public async Task<IEnumerable<Book>> GetAllBooks()
         {
             var books = await _unitOfWork.BookRepository.GetAll();
-          
+
             return books;
         }
 
-        public async Task<Book?> GetBookByFilter(Expression<Func<Book, bool>> expression)
+        public async Task<Book> GetBookByFilter(Expression<Func<Book, bool>> expression)
         {
             var books = await _unitOfWork.BookRepository.GetBy(expression);
-            if(books == null) { return null; }
+            if (books == null) { throw new NotFoundException("No books with argument provided was found"); }
             return books;
         }
-        public Book SaveBook(Book book)
+        public async Task<Book> SaveBook(Book book)
         {
-           var bookReturn = _unitOfWork.BookRepository.Create(book);
+            var teste = await GetBookByFilter(x => x.Title == book.Title);
+            if (teste != null)
+            {
+                throw new AlreadyExistsException("Cannot save this book because it already exists in the database");
+            }
+            var bookReturn = _unitOfWork.BookRepository.Create(book);
             return bookReturn;
         }
 
-        public Book UpdateBook(Book book)
+        public async Task<Book> UpdateBook(Book book, int id)
         {
+            var teste = await GetBookByFilter(x => x.Id == book.Id);
+            if (teste == null)
+            {
+                throw new NotFoundException("Book not found");
+            }
             var bookReturn = _unitOfWork.BookRepository.Update(book);
             return bookReturn;
         }
-        public Book DeleteBook(Book book)
+        public async Task<Book> DeleteBook(int id)
         {
-            var bookReturn = _unitOfWork.BookRepository.Delete(book);
-            return bookReturn;
+            var bookToBeDeleted = await GetBookByFilter(x => x.Id == id);
+            if (bookToBeDeleted == null) {
+                throw new NotFoundException("No Book with such ID found");
+            }
+            var bookReturn = _unitOfWork.BookRepository.Delete(bookToBeDeleted);
+            return bookToBeDeleted;
         }
     }
-    
- }
+
+}
