@@ -18,30 +18,61 @@ namespace VocabularyBuilder.API.Controllers
             _bookService = bookService;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetAll() { 
+        public async Task<ActionResult<IEnumerable<Book>>> GetAll()
+        {
             return Ok(await _bookService.GetAllBooks());
         }
-        [HttpGet("SearchById")]
+        [HttpGet("{id:int:min(1)}")]
         public async Task<ActionResult<Book>> GetById(int id)
         {
-            try {
+            try
+            {
                 var search = await _bookService.GetBookByFilter(x => x.Id == id);
                 return Ok(search);
-            
-            } catch (NotFoundException e) {
+
+            }
+            catch (NotFoundException e)
+            {
                 return NotFound($"No book found with such ID {id}");
             }
         }
         [HttpPost]
-        public async Task<ActionResult<Book>> Post(Book book) {
-            try { 
+        public async Task<ActionResult<Book>> Post(Book book)
+        {
+            try
+            {
                 var SavedBook = await _bookService.SaveBook(book);
                 return new CreatedAtRouteResult(await GetById(SavedBook.Id), SavedBook);
             }
-            catch (AlreadyExistsException e) { 
+            catch (AlreadyExistsException e)
+            {
                 return BadRequest(e.Message);
             }
         }
-        
+        [HttpPut("{id:int:min(1)}")]
+        public async Task<ActionResult<Book>> Put(Book book, int id)
+        {
+            try
+            {
+                return await _bookService.UpdateBook(book, id);
+            }
+            catch (NotFoundException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpDelete("{id:int:min(1)}")]
+        public async Task<ActionResult<Book>> Delete(int id)
+        {
+            try
+            {
+                return await _bookService.DeleteBook(id);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
     }
 }

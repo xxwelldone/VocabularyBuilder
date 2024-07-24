@@ -45,13 +45,20 @@ namespace VocabularyBuilder.App.Services
 
         public async Task<Book> UpdateBook(Book book, int id)
         {
-            var teste = await GetBookByFilter(x => x.Id == book.Id);
-            if (teste == null)
+            if (book.Id == id)
             {
-                throw new NotFoundException("Book not found");
+                var teste = await GetBookByFilter(x => x.Id == book.Id);
+
+                if (teste == null)
+                {
+                    throw new NotFoundException("Book not found");
+                }
+                var bookReturn = _unitOfWork.BookRepository.Update(book);
+                return bookReturn;
             }
-            var bookReturn = _unitOfWork.BookRepository.Update(book);
-            return bookReturn;
+            else {
+                throw new NotFoundException("ID and Book are different");
+            }
         }
         public async Task<Book> DeleteBook(int id)
         {
