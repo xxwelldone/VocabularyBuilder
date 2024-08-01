@@ -11,10 +11,10 @@ namespace VocabularyBuilder.App.Interfaces
     public interface IVocabularyService
     {
         Task<IEnumerable<Vocabulary>> GetAllVocabularies();
-        Task<Vocabulary?> GetByFilter(Expression<Func<Vocabulary, bool>> expression);
-        Vocabulary SaveVocabulary(Vocabulary vocabulary);
-        Vocabulary UpdateVocabulary(Vocabulary vocabulary);
-        Vocabulary DeleteVocabulary(Vocabulary vocabulary);
+        Task<Vocabulary> GetVocabularyByFilter(Expression<Func<Vocabulary, bool>> expression);
+        Task<Vocabulary> SaveVocabulary(Vocabulary vocabulary);
+        Task<Vocabulary> UpdateVocabulary(Vocabulary vocabulary, int id);
+        Task<Vocabulary> DeleteVocabulary(string word);
 
 
     }
